@@ -1,0 +1,161 @@
+{% extends "home/home_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_content %}
+
+<!-- Start Banner Area  -->
+		{% image page.image fill-1918x670 as header_img %}
+        <div class="axil-banner banner-style-1 bg_image bg_image--3" style="background-image: url({{ header_img.url  }});">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="inner">
+                            <h1 class="title">{{ page.heading_title }}</h1>
+                            <p class="description">{{ page.text }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Banner Area  -->
+
+        <!-- Start Post List Wrapper  -->
+        <div class="axil-post-list-area axil-section-gap bg-color-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-xl-8">
+                        <!-- Start About Area  -->
+                        <div class="axil-about-us">
+                            <div class="inner">
+                                {% for block in page.content %}
+                                    {% include_block block %}
+                                {% endfor %}
+                            </div>
+                            <!-- Start Contact Form  -->
+                            <div class="axil-section-gapTop axil-contact-form-area">
+                                <h4 class="title mb--10">Send Us a Message</h4>
+                                <p class="b3 mb--30">Your email address will not be published. All the fields are required.</p>
+                                <form id="contact-form" method="POST" action="http://axilthemes.com/demo/template/blogar/mail.php" class="axil-contact-form contact-form--1 row">
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label for="contact-name">Your Name</label>
+                                            <input name="contact-name" id="contact-name" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label for="contact-phone">Phone</label>
+                                            <input type="text" name="contact-phone" id="contact-phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label>Your Email</label>
+                                            <input for="contact-email" name="contact-email" id="contact-email" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="contact-message">Your Message</label>
+                                            <textarea name="contact-message" id="contact-message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-submit">
+                                            <button name="submit" type="submit" id="submit" class="axil-button button-rounded btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End Contact Form  -->
+                        </div>
+                        <!-- End About Area  -->
+                    </div>
+                    <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
+                        <!-- Start Sidebar Area  -->
+                        <div class="sidebar-inner">
+                            <!-- Start Single Widget  -->
+                            <div class="axil-single-widget widget widget_categories mb--30">
+                                <ul>
+                                	{% for trd_tpc in trending_topics %}
+                                	<li class="cat-item">
+                                        <a href="#" class="inner">
+                                            <div class="thumbnail">
+                                            	{% image trd_tpc.topic.image fill-100x100 as topic_image %}
+                                                <img src="{{ topic_image.url }}" alt="">
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="title">{{ trd_tpc.topic.name }}</h5>
+                                            </div>
+                                        </a>
+                                    </li>	
+                                	{% endfor %}
+                                </ul>
+                            </div>
+                            <!-- End Single Widget  -->
+
+                            <!-- Start Single Widget  -->
+                            <div class="axil-single-widget widget widget_search mb--30">
+                                <h5 class="widget-title">Search</h5>
+                                <form action="#">
+                                    <div class="axil-search form-group">
+                                        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                                        <input type="text" class="form-control" placeholder="Search">
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End Single Widget  -->
+
+                            <!-- Start Single Widget  -->
+                            <div class="axil-single-widget widget widget_postlist mb--30">
+                                <h5 class="widget-title">Popular on Blogar</h5>
+                                <!-- Start Post List  -->
+                                <div class="post-medium-block">
+                                	{% for plr_pst in popular_posts %}
+                                    <!-- Start Single Post  -->
+                                    <div class="content-block post-medium mb--20">
+                                        <div class="post-thumbnail">
+                                            <a href="{% pageurl plr_pst.post %}">
+                                                {% image plr_pst.post.image fill-100x100 as pst_image %}
+                                                <img src="{{ pst_image.url }}" alt="Post Images">
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+                                            <h6 class="title"><a href="{% pageurl plr_pst.post %}">{{ plr_pst.post.title }}</a></h6>
+                                            <div class="post-meta">
+                                                <ul class="post-meta-list">
+                                                    <li>{{ plr_pst.post.first_published_at|date:"N d, Y" }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Post  -->
+                                    {% endfor %}
+                                </div>
+                                <!-- End Post List  -->
+
+                            </div>
+                            <!-- End Single Widget  -->
+
+                            <!-- Start Single Widget  -->
+                            <div class="axil-single-widget widget widget_social mb--30">
+                                <h5 class="widget-title">Stay In Touch</h5>
+                                <!-- Start Post List  -->
+                                <ul class="social-icon md-size justify-content-center">
+                                    {% for block in settings.site_settings.SocialMediaLinksSettings.links %}
+                                    	<!-- <li><a href="{{ links.link.url }}"><i class="fab fa-{{links.link.name}}"></i></a></li> -->
+                                    	{% include_block block %}
+	                                {% endfor %}
+                                </ul>
+                                <!-- End Post List  -->
+                            </div>
+                            <!-- End Single Widget  -->
+                        </div>
+                        <!-- End Sidebar Area  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Post List Wrapper  -->
+
+{% endblock body_content %}

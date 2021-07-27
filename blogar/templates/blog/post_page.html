@@ -1,0 +1,121 @@
+{% extends "home/home_page.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_content %}
+
+<!-- Start Post Single Wrapper  -->
+        <div class="post-single-wrapper axil-section-gap bg-color-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <!-- Start Banner Area -->
+                        <div class="banner banner-single-post post-formate post-layout pb--40">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Start Single Slide  -->
+                                        <div class="content-block">
+                                            <!-- Start Post Content  -->
+                                            <div class="post-content">
+                                                <div class="post-cat" style="display: flex;">
+                                                    <div class="post-cat-list" style="margin-right: 3px">
+                                                    	{% for pst_tpc in page.post_topics.all %}
+				                                        <div class="post-cat-list" style="margin-right: 3px;">
+				                                            <a class="hover-flip-item-wrapper" href="#">
+				                                                <span class="hover-flip-item">
+				                                                    <span data-text="{{ pst_tpc.topic.name }}">{{ pst_tpc.topic.name }}</span>
+				                                                </span>
+				                                            </a>
+				                                        </div>   
+				                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <h1 class="title">{{ page.title }}</h1>
+                                                <!-- Post Meta  -->
+                                                <div class="post-meta-wrapper">
+                                                    <div class="post-meta">
+                                                        <div class="post-author-avatar border-rounded">
+                                                            <img src="{{ page.owner.wagtail_userprofile.avatar.url }}" alt="Author Images" style="max-width: 50px; max-height: 50px;">
+                                                        </div>
+                                                        <div class="content">
+                                                            <h6 class="post-author-name">
+                                                                <a class="hover-flip-item-wrapper" href="author.html">
+                                                                    <span class="hover-flip-item">
+                                                                        <span data-text="{{ page.owner.get_full_name }}">{{ page.owner.get_full_name }}</span>
+                                                                    </span>
+                                                                </a>
+                                                            </h6>
+                                                            <ul class="post-meta-list">
+                                                                <li>{{ page.first_published_at|date:"N d, Y" }}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="social-share-transparent justify-content-end">
+                                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                        <li><a href="#"><i class="fas fa-link"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- End Post Content  -->
+                                        </div>
+                                        <!-- End Single Slide  -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Banner Area -->
+                        <!-- Start Blog Details  -->
+                        <div class="axil-post-details">
+                        	{% for block in page.content %}
+                        		{% include_block block %}
+                        	{% endfor %}
+                            <!-- Start Author  -->
+                            <div class="about-author">
+                                <div class="media">
+                                    <div class="thumbnail">
+                                        <a href="#">
+                                            <img src="{{ page.owner.wagtail_userprofile.avatar.url }}" alt="Author Images" style="max-width: 105px; max-height: 105px;">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="author-info">
+                                            <h5 class="title">
+                                                <a class="hover-flip-item-wrapper" href="#">
+                                                    <span class="hover-flip-item">
+                                                        <span data-text="{{ page.owner.get_full_name }}">{{ page.owner.get_full_name }}</span>
+                                                    </span>
+                                                </a>
+                                            </h5>
+                                            <span class="b3 subtitle">Sr. UX Designer</span>
+                                        </div>
+                                        <div class="content">
+                                            <p class="b1 description">At 29 years old, my favorite compliment is being
+                                                told that I look like my mom. Seeing myself in her image, like this
+                                                daughter up top, makes me so proud of how far I’ve come, and so thankful
+                                                for where I come from.</p>
+                                            <ul class="social-share-transparent size-md">
+                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="far fa-envelope"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Author  -->
+                            </div>
+                            <!-- End Comment Form Area  -->
+
+
+                        </div>
+                        <!-- End Blog Details  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Post Single Wrapper  -->
+{% endblock body_content %}

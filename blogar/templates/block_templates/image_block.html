@@ -1,0 +1,6 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<figure class="wp-block-image alignwide text-center">
+    {% image self.image fill-810x500 alt="Post Images" %}
+    <!-- <img src="assets/images/post-single/post-single-06.jpg" alt="Post Images"> -->
+    <figcaption>{{ self.title }}</figcaption>
+</figure>

@@ -1,0 +1,570 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block title %}{% endblock title %}
+
+{% block extra_css %}{% endblock extra_css %}
+
+{% block body %}
+
+{% image settings.site_settings.LogoSettings.dark_logo fill-267x70 as dark_logo %}
+{% image settings.site_settings.LogoSettings.light_log fill-267x70 as light_logo %}
+
+
+<!-- Start Header -->
+<header class="header axil-header  header-light header-sticky ">
+    <div class="header-wrap">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-3 col-12">
+                <div class="logo">
+                    <a href="/">
+                        <img class="dark-logo" src="{{ dark_logo.url }}">
+                        <img class="light-logo" src="{{ light_logo.url }}">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xl-6 d-none d-xl-block">
+                <div class="mainmenu-wrapper">
+                    <nav class="mainmenu-nav">
+                        <!-- Start Mainmanu Nav -->
+                        <ul class="mainmenu">
+                        	{% for item in menu_items %}
+                        	<li><a href="{% pageurl item %}">{{ item.title }}</a></li>
+                        	{% endfor %}
+                        </ul>
+                        <!-- End Mainmanu Nav -->
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-8 col-md-8 col-sm-9 col-12">
+                <div class="header-search text-right d-flex align-items-center">
+                    <form class="header-search-form">
+                        <div class="axil-search form-group">
+                            <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                    <!-- Start Hamburger Menu  -->
+                    <div class="hamburger-menu d-block d-xl-none">
+                        <div class="hamburger-inner">
+                            <div class="icon"><i class="fas fa-bars"></i></div>
+                        </div>
+                    </div>
+                    <!-- End Hamburger Menu  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Start Header -->
+
+<!-- Start Mobile Menu Area  -->
+<div class="popup-mobilemenu-area">
+    <div class="inner">
+        <div class="mobile-menu-top">
+            <div class="logo">
+                <a href="index.html">
+                    <img class="dark-logo" src="{{ dark_logo.url }}" alt="Logo Images">
+                    <img class="light-logo" src="{{ light_logo.url }}" alt="Logo Images">
+                </a>
+            </div>
+            <div class="mobile-close">
+                <div class="icon">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+        </div>
+        <ul class="mainmenu">
+            {% for item in menu_items %}
+            <li><a href="{% pageurl item %}">{{ item.title }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</div>
+<!-- End Mobile Menu Area  -->
+{% block body_content %}
+<!-- Start Banner Area -->
+    <h1 class="d-none">Home Default Blog</h1>
+        <div class="axil-slide slider-style-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider-activation axil-slick-arrow">
+                            <!-- Start Single Slide  -->
+                            <div class="content-block">
+                                <!-- Start Post Thumbnail  -->
+                                <div class="post-thumbnail">
+                                    <a href="{% pageurl page.header_post %}">
+                                        {% image page.header_post.image fill-2880x1440 as header_post_img %}
+                                        <img src="{{ header_post_img.url }}" alt="Post Images">
+                                    </a>
+                                </div>
+                                <!-- End Post Thumbnail  -->
+
+                                <!-- Start Post Content  -->
+                                <div class="post-content">
+                                    <div class="post-cat" style="display: flex;">
+                                        {% for pst_tpc in page.header_post.post_topics.all %}
+                                        <div class="post-cat-list" style="margin-right: 3px;">
+                                            <a class="hover-flip-item-wrapper" href="#">
+                                                <span class="hover-flip-item">
+                                                    <span data-text="{{ pst_tpc.topic.name }}">{{ pst_tpc.topic.name }}</span>
+                                                </span>
+                                            </a>
+                                        </div>   
+                                        {% endfor %}
+                                    </div>
+                                    <h2 class="title"><a href="{% pageurl page.header_post %}">{{ page.header_post.title }}</a></h2>
+                                    <!-- Post Meta  -->
+                                    <div class="post-meta-wrapper with-button">
+                                        <div class="post-meta">
+                                            <div class="post-author-avatar border-rounded">
+                                                <img src="{{ page.header_post.owner.wagtail_userprofile.avatar.url }}" alt="Author Images" style="max-width: 50px; max-height: 50px;">
+                                            </div>
+                                            <div class="content">
+                                                <h6 class="post-author-name">
+                                                    <a class="hover-flip-item-wrapper" href="author.html">
+                                                        <span class="hover-flip-item">
+                                                            <span data-text="{{ page.header_post.owner.get_full_name }}">{{ page.header_post.owner.get_full_name }}</span>
+                                                        </span>
+                                                    </a>
+                                                </h6>
+                                                <ul class="post-meta-list">
+                                                    <li>{{ page.header_post.first_published_at|date:"N d, Y" }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <ul class="social-share-transparent justify-content-end">
+                                            
+                                        </ul>
+                                        <div class="read-more-button cerchio">
+                                            <a class="axil-button button-rounded hover-flip-item-wrapper" href="{% pageurl page.header_post %}">
+                                                <span class="hover-flip-item">
+                                                    <span data-text="Read Post">Read Post</span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Post Content  -->
+                            </div>
+                            <!-- End Single Slide  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- End Banner Area -->
+
+    <!-- Start Featured Area  -->
+    <div class="axil-featured-post axil-section-gap bg-color-grey">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2 class="title">More Featured Posts.</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for ftrd_pst in page.featured_posts.all %}
+                <!-- Start Single Post  -->
+                <div class="col-lg-6 col-xl-6 col-md-12 col-12 mt--30">
+                    <div class="content-block content-direction-column axil-control is-active post-horizontal thumb-border-rounded">
+                        <div class="post-content" style="flex: 1;">
+                            <div class="post-cat" style="display: flex;">
+                                {% for pst_topic in ftrd_pst.post.post_topics.all %}
+                                <div class="post-cat-list" style="margin-right: 2px;">
+                                    <a class="hover-flip-item-wrapper" href="#">
+                                        <span class="hover-flip-item">
+                                            <span data-text="{{ pst_topic.topic.name }}">{{ pst_topic.topic.name }}</span>
+                                        </span>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <h4 class="title" style="flex: 1;"><a href="{% pageurl ftrd_pst.post %}">{{ ftrd_pst.post.title }}</a></h4>
+                            <div class="post-meta">
+                                <div class="post-author-avatar border-rounded">
+                                    <img src="{{ ftrd_pst.post.owner.wagtail_userprofile.avatar.url }}" alt="Author Images" style="max-width: 50px; max-height: 50px;">
+                                </div>
+                                <div class="content">
+                                    <h6 class="post-author-name">
+                                        <a class="hover-flip-item-wrapper" href="author.html">
+                                            <span class="hover-flip-item">
+                                                <span data-text="{{ ftrd_pst.post.owner.get_full_name }}">{{ ftrd_pst.post.owner.get_full_name }}</span>
+                                            </span>
+                                        </a>
+                                    </h6>
+                                    <ul class="post-meta-list">
+                                        <li>{{ ftrd_pst.post.first_published_at|date:"N d, Y" }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-thumbnail">
+                            <a href="{% pageurl ftrd_pst.post %}">
+                                {% image ftrd_pst.post.image fill-250x250 as img %}
+                                <img src="{{ img.url }}" alt="Post Images">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Post  -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- End Featured Area  -->
+
+
+    <!-- Start Categories List  -->
+    <div class="axil-categories-list axil-section-gap bg-color-grey">
+        <div class="container">
+            <div class="row align-items-center mb--30">
+                <div class="col-lg-6 col-md-8 col-sm-8 col-12">
+                    <div class="section-title">
+                        <h2 class="title">Trending Topics</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-4 col-12">
+                    <div class="see-all-topics text-left text-sm-right mt_mobile--20">
+                        <a class="axil-link-button" href="#">See All Topics</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Start List Wrapper  -->
+                    <div class="list-categories d-flex flex-wrap">
+                        {% for trd_tpc in page.trending_topics.all %}
+                        <!-- Start Single Category  -->
+                        <div class="single-cat">
+                            <div class="inner">
+                                <a href="#">
+                                    <div class="thumbnail">
+                                        {% image trd_tpc.topic.image fill-1410x1320 as topic_img %}
+                                        <img src="{{ topic_img.url }}" alt="post categories">
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="title">{{ trd_tpc.topic.name }}</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End Single Category  -->
+                        {% endfor %}
+                    </div>
+                    <!-- Start List Wrapper  -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Categories List  -->
+
+    <!-- Start Trending Post Area  -->
+    <div class="axil-trending-post-area axil-section-gap bg-color-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2 class="title">Most Popular</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Start Axil Tab Button  -->
+
+                    <!-- End Axil Tab Button  -->
+
+                    <!-- Start Axil Tab Content  -->
+
+                    <div class="tab-content">
+                        <!-- Single Tab Content  -->
+                        <div class="row trend-tab-content tab-pane fade show active" id="trendone" role="tabpanel" aria-labelledby="trend-one">
+                            <div class="col-lg-8">
+                                {% for popular_post in page.popular_posts.all %}
+                                <!-- Start Single Post  -->
+                                <div class="content-block trend-post post-order-list axil-control">
+                                    <div class="post-inner">
+                                        <span class="post-order-list">0{{ forloop.counter }}</span>
+                                        <div class="post-content" style="flex: 1;">
+                                            <div class="post-cat" style="display: flex;">
+                                                {% for pst_topic in popular_post.post.post_topics.all %}
+                                                <div class="post-cat-list" style="margin-right: 2px;">
+                                                    <a class="hover-flip-item-wrapper" href="#">
+                                                        <span class="hover-flip-item">
+                                                            <span data-text="{{ pst_topic.topic.name }}">{{ pst_topic.topic.name }}</span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            <h3 class="title" style="min-width: 100%"><a href="{% pageurl popular_post.post %}">{{ popular_post.post.title }}</a></h3>
+                                            <div class="post-meta-wrapper">
+                                                <div class="post-meta">
+                                                    <div class="content">
+                                                        <h6 class="post-author-name">
+                                                            <a class="hover-flip-item-wrapper" href="author.html">
+                                                                <span class="hover-flip-item">
+                                                                    <span data-text="{{ popular_post.post.owner.get_full_name }}">{{ popular_post.post.owner.get_full_name }}</span>
+                                                                </span>
+                                                            </a>
+                                                        </h6>
+                                                        <ul class="post-meta-list">
+                                                            <li>{{ popular_post.post.first_published_at|date:"N d, Y" }}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <ul class="social-share-transparent justify-content-end">
+                                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a href="#"><i class="fas fa-link"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="post-thumbnail">
+                                        <a href="{% pageurl popular_post.post %}">
+                                            {% image popular_post.post.image fill-390x390 as popular_post_img %}
+                                            <img src="{{ popular_post_img.url }}" alt="Post Images">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- End Single Post  -->
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- Single Tab Content  -->
+                    </div>
+                    <!-- End Axil Tab Content  -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Trending Post Area  -->
+{% endblock body_content %}
+
+    <!-- Start Footer Area  -->
+    <div class="axil-footer-area axil-footer-style-1 footer-variation-2">
+        <div class="footer-mainmenu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget">
+                            <h2 class="title">World</h2>
+                            <div class="inner">
+                                <ul class="ft-menu-list">
+                                    <li><a href="#">U.N.</a></li>
+                                    <li><a href="#">Conflicts</a></li>
+                                    <li><a href="#">Terrorism</a></li>
+                                    <li><a href="#">Disasters</a></li>
+                                    <li><a href="#">Global Economy</a></li>
+                                    <li><a href="#">Environment</a></li>
+                                    <li><a href="#">Religion</a></li>
+                                    <li><a href="#">Scandals</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget">
+                            <h2 class="title">Politics</h2>
+                            <div class="inner">
+                                <ul class="ft-menu-list">
+                                    <li><a href="#">Executive</a></li>
+                                    <li><a href="#">Senate</a></li>
+                                    <li><a href="#">House</a></li>
+                                    <li><a href="#">Judiciary</a></li>
+                                    <li><a href="#">Global Economy</a></li>
+                                    <li><a href="#">Foreign policy</a></li>
+                                    <li><a href="#">Polls</a></li>
+                                    <li><a href="#">Elections</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget">
+                            <h2 class="title">Entertainment</h2>
+                            <div class="inner">
+                                <ul class="ft-menu-list">
+                                    <li><a href="#">Celebrity News</a></li>
+                                    <li><a href="#">Movies</a></li>
+                                    <li><a href="#">TV News</a></li>
+                                    <li><a href="#">Disasters</a></li>
+                                    <li><a href="#">Music News</a></li>
+                                    <li><a href="#">Environment</a></li>
+                                    <li><a href="#">Style News</a></li>
+                                    <li><a href="#">Entertainment Video</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget">
+                            <h2 class="title">Business</h2>
+                            <div class="inner">
+                                <ul class="ft-menu-list">
+                                    <li><a href="#">Environment</a></li>
+                                    <li><a href="#">Conflicts</a></li>
+                                    <li><a href="#">Terrorism</a></li>
+                                    <li><a href="#">Disasters</a></li>
+                                    <li><a href="#">Global Economy</a></li>
+                                    <li><a href="#">Environment</a></li>
+                                    <li><a href="#">Religion</a></li>
+                                    <li><a href="#">Scandals</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget">
+                            <h2 class="title">Health</h2>
+                            <div class="inner">
+                                <ul class="ft-menu-list">
+                                    <li><a href="#">Movies</a></li>
+                                    <li><a href="#">Conflicts</a></li>
+                                    <li><a href="#">Terrorism</a></li>
+                                    <li><a href="#">Disasters</a></li>
+                                    <li><a href="#">Global Economy</a></li>
+                                    <li><a href="#">Environment</a></li>
+                                    <li><a href="#">Religion</a></li>
+                                    <li><a href="#">Scandals</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget">
+                            <h2 class="title">About</h2>
+                            <div class="inner">
+                                <ul class="ft-menu-list">
+                                    <li><a href="#">U.N.</a></li>
+                                    <li><a href="#">Conflicts</a></li>
+                                    <li><a href="#">Terrorism</a></li>
+                                    <li><a href="#">Disasters</a></li>
+                                    <li><a href="#">Global Economy</a></li>
+                                    <li><a href="#">Environment</a></li>
+                                    <li><a href="#">Religion</a></li>
+                                    <li><a href="#">Scandals</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Footer Top Area  -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="logo">
+                            <a href="/">
+                                <img class="dark-logo" src="{{ dark_logo.url }}">
+                                <img class="white-logo" src="{{ light_logo.url }}" alt="Logo Images">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8">
+                        <!-- Start Post List  -->
+                        <div class="d-flex justify-content-start mt_sm--15 justify-content-md-end align-items-center flex-wrap">
+                            <h5 class="follow-title mb--0 mr--20">Follow Us</h5>
+                            <ul class="social-icon color-tertiary md-size justify-content-start">
+                                <!-- <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li> -->
+                                {% for block in settings.site_settings.SocialMediaLinksSettings.links %}
+                                    <!-- <li><a href="{{ links.link.url }}"><i class="fab fa-{{links.link.name}}"></i></a></li> -->
+                                    {% include_block block %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- End Post List  -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Footer Top Area  -->
+
+        <!-- Start Copyright Area  -->
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 col-md-8">
+                        <div class="copyright-left">
+                            <ul class="mainmenu justify-content-start">
+                                <li>
+                                    <a class="hover-flip-item-wrapper" href="#">
+                                        <span class="hover-flip-item">
+                                    <span data-text="Contact Us">Contact Us</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="hover-flip-item-wrapper" href="#">
+                                        <span class="hover-flip-item">
+                                    <span data-text="Terms of Use">Terms of Use</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="hover-flip-item-wrapper" href="#">
+                                        <span class="hover-flip-item">
+                                    <span data-text="AdChoices">AdChoices</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="hover-flip-item-wrapper" href="#">
+                                        <span class="hover-flip-item">
+                                    <span data-text="Advertise with Us">Advertise with Us</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="hover-flip-item-wrapper" href="#">
+                                        <span class="hover-flip-item">
+                                    <span data-text="Blogar Store">Blogar Store</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                        <div class="copyright-right text-left text-md-right mt_sm--20">
+                            <p class="b3">All Rights Reserved © 2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Area  -->
+    </div>
+    <!-- End Footer Area  -->
+
+    <!-- Start Back To Top  -->
+    <a id="backto-top"><i class="fas fa-chevron-up"></i></a>
+    <!-- End Back To Top  -->
+
+    <div>
+        
+    </div>
+
+</div>
+
+{% endblock body %}
+
+{% block extra_js %}{% endblock extra_js %}
